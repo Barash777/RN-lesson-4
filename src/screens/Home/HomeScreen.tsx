@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {api, PokemonItem} from "../../api/api";
 
 export const HomeScreen = () => {
@@ -14,7 +14,7 @@ export const HomeScreen = () => {
 
     const render: ListRenderItem<PokemonItem> = ({item}) => {
         return <TouchableOpacity>
-            <View>
+            <View style={styles.item}>
                 <Text>
                     {item.name}
                 </Text>
@@ -23,8 +23,18 @@ export const HomeScreen = () => {
     }
 
     return (
-        <View>
+        <View style={{paddingHorizontal: 20}}>
             <FlatList data={allPokemons} renderItem={render}/>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    item: {
+        borderWidth: 1,
+        borderRadius: 15,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        marginVertical: 5
+    }
+})

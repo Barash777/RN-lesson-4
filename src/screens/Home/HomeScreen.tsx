@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {api, PokemonItem} from "../../api/api";
+import {useAppNavigation} from "../types";
 
 export const HomeScreen = () => {
     const [allPokemons, setAllPokemons] = useState<PokemonItem[]>([]);
+    const navigation = useAppNavigation()
 
     useEffect(() => {
         api.getAllPokemons()
@@ -13,7 +15,7 @@ export const HomeScreen = () => {
     }, []);
 
     const render: ListRenderItem<PokemonItem> = ({item}) => {
-        return <TouchableOpacity>
+        return <TouchableOpacity onPress={() => navigation.navigate('Details', {url: item.url})}>
             <View style={styles.item}>
                 <Text>
                     {item.name}

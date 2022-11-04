@@ -1,17 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, ListRenderItem, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {api, PokemonItem} from "../../api/api";
+import {PokemonItem} from "../../api/api";
 import {useAppNavigation} from "../types";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {getAllPokemons} from "../../store/rootSlice";
 
 export const HomeScreen = () => {
-    const [allPokemons, setAllPokemons] = useState<PokemonItem[]>([]);
+    // const [allPokemons, setAllPokemons] = useState<PokemonItem[]>([]);
     const navigation = useAppNavigation()
 
+    const allPokemons = useAppSelector(state => state.root.allPokemons)
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
-        api.getAllPokemons()
-            .then(res => {
-                setAllPokemons(res.data.results)
-            })
+        // api.getAllPokemons()
+        //     .then(res => {
+        //         setAllPokemons(res.data.results)
+        //     })
+        dispatch(getAllPokemons())
     }, []);
 
     const render: ListRenderItem<PokemonItem> = ({item}) => {

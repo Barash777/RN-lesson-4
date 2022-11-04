@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from "react-native";
+import {Image, Text, View} from "react-native";
 import {DetailsPropsType} from "../types";
 import {api, Pokemon} from "../../api/api";
 
@@ -15,7 +15,14 @@ export const DetailsScreen = (props: DetailsPropsType) => {
 
     return (
         <View>
-            <Text>Details</Text>
+            {pokemon
+                ? <View>
+                    <Text>{pokemon.name}</Text>
+                    <Image source={{uri: pokemon.sprites.other["official-artwork"].front_default}}
+                           style={{width: 200, height: 200}}/>
+                </View>
+                : undefined
+            }
         </View>
     );
 };

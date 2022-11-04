@@ -23,13 +23,17 @@ export const getPokemonById = createAsyncThunk<Pokemon, string>('root/getPokemon
         }
     })
 
-const rootSlice = createSlice({
+export const rootSlice = createSlice({
     name: 'root',
     initialState: {
         allPokemons: [] as PokemonItem[],
         pokemon: null as null | Pokemon
     },
-    reducers: {},
+    reducers: {
+        clearPokemonState: (state) => {
+            state.pokemon = null
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getAllPokemons.fulfilled, (state, action) => {
@@ -40,5 +44,7 @@ const rootSlice = createSlice({
             })
     }
 })
+
+export const {clearPokemonState} = rootSlice.actions
 
 export const rootSliceReducer = rootSlice.reducer

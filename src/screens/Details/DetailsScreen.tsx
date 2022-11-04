@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Image, Text, View} from "react-native";
 import {DetailsPropsType} from "../types";
 import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getPokemonById} from "../../store/rootSlice";
+import {clearPokemonState, getPokemonById} from "../../store/rootSlice";
 
 export const DetailsScreen = (props: DetailsPropsType) => {
     // const [pokemon, setPokemon] = useState<Pokemon | null>();
@@ -15,6 +15,10 @@ export const DetailsScreen = (props: DetailsPropsType) => {
         //         setPokemon(res.data)
         //     })
         dispatch(getPokemonById(props.route.params.url))
+
+        return () => {
+            dispatch(clearPokemonState())
+        }
     }, []);
 
     return (

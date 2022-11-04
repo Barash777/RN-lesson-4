@@ -8,7 +8,18 @@ export const getAllPokemons = createAsyncThunk<PokemonItem[], void>('root/getAll
             return res.data.results
         } catch (e) {
             // console.log(e)
-            return rejectWithValue('as')
+            return rejectWithValue(e)
+        }
+    })
+
+export const getPokemonById = createAsyncThunk<Pokemon, string>('root/getPokemonById',
+    async (url, {rejectWithValue}) => {
+        try {
+            const res = await api.getPokemonById(url)
+            return res.data
+        } catch (e) {
+            // console.log(e)
+            return rejectWithValue(e)
         }
     })
 
@@ -23,6 +34,9 @@ const rootSlice = createSlice({
         builder
             .addCase(getAllPokemons.fulfilled, (state, action) => {
                 state.allPokemons = action.payload
+            })
+            .addCase(getPokemonById.fulfilled, (state, action) => {
+                state.pokemon = action.payload
             })
     }
 })

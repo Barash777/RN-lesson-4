@@ -4,7 +4,7 @@ import {DetailsPropsType} from "../types";
 import {api, Pokemon} from "../../api/api";
 
 export const DetailsScreen = (props: DetailsPropsType) => {
-    const [pokemon, setPokemon] = useState<Pokemon>();
+    const [pokemon, setPokemon] = useState<Pokemon | null>();
 
     useEffect(() => {
         api.getPokemonById(props.route.params.url)

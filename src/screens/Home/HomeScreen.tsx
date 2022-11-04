@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from "react-native";
+import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from "react-native";
 import {api, PokemonItem} from "../../api/api";
 
 export const HomeScreen = () => {
@@ -12,9 +12,19 @@ export const HomeScreen = () => {
             })
     }, []);
 
+    const render: ListRenderItem<PokemonItem> = ({item}) => {
+        return <TouchableOpacity>
+            <View>
+                <Text>
+                    {item.name}
+                </Text>
+            </View>
+        </TouchableOpacity>
+    }
+
     return (
         <View>
-            <Text>Home</Text>
+            <FlatList data={allPokemons} renderItem={render}/>
         </View>
     );
 };
